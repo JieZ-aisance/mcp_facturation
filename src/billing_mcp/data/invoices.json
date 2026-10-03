@@ -1,0 +1,36 @@
+[
+{
+  "id": "FA-2026-002",
+  "client": "SARL Dupont & Fils",
+  "label": "Développement module stock",
+  "issue_date": "2026-02-03",
+  "due_date": "2026-03-05",
+  "amount_ht": "8400.00",
+  "vat_rate": "0.20",
+  "paid_amount": "0.00",
+  "status": "sent"
+},
+{
+  "id": "FA-2026-003",
+  "client": "SARL Total",
+  "label": "Formation utilisateurs",
+  "issue_date": "2026-02-04",
+  "due_date": "2026-03-05",
+  "amount_ht": "8400.00",
+  "vat_rate": "0.20",
+  "paid_amount": "0.00",
+  "status": "cancelled"
+},
+{
+  "id": "FA-2026-004",
+  "client": "SARL Engin",
+  "label": "Audit sécurité",
+  "issue_date": "2026-02-05",
+  "due_date": "2026-03-05",
+  "amount_ht": "8400.00",
+  "vat_rate": "0.20",
+  "paid_amount": "10080.00",
+  "status": "paid"
+}
+]
+
