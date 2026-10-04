@@ -39,20 +39,22 @@ mcp = MCPServer(
 
 
 @lru_cache(maxsize=1)
+##获取数据仓库
 def get_repository() -> InvoiceRepository:
     """Charge le dépôt une seule fois par processus."""
     chemin = os.environ.get("BILLING_DATA_FILE", str(DEFAULT_DATA_FILE))
     return InvoiceRepository.from_json_file(chemin)
 
-
+##处理参考日期
 def _as_of(value: str | None) -> date:
     """Date de référence des calculs de retard (aujourd'hui par défaut)."""
     return parse_date(value, "as_of") if value else date.today()
 
 
 F = TypeVar("F", bound=Callable[..., Any])
+##定义一个类型变量 F，表示"某种可调用的东西（函数）"
 
-
+##错误转换装饰器
 def business_errors(func: F) -> F:
     """Convertit les erreurs métier en ToolError.
 
