@@ -1,5 +1,5 @@
 """Accès aux données de facturation.
-
+管一堆发票，负责加载、查找、筛选、汇总
 Le dépôt travaille en mémoire à partir d'un fichier JSON. Il serait remplacé par
 un accès base de données sans changer l'interface utilisée par le serveur MCP.
 """
@@ -21,7 +21,7 @@ ZERO = Decimal("0.00")
 
 def normalize(text: str) -> str:
     """Minuscules sans accents, pour une recherche tolérante.
-
+    模糊搜索用的文本标准化
     « Café des Alpes » doit être trouvé en tapant « cafe ».
     """
     decompose = unicodedata.normalize("NFKD", str(text))
@@ -32,7 +32,7 @@ def normalize(text: str) -> str:
 @dataclass(frozen=True)
 class ClientTotals:
     """Agrégats de facturation pour un client."""
-
+###mcp返回的就是他，不可变的dataclass
     client: str
     invoice_count: int
     total_ht: Decimal
