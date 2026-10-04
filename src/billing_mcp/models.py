@@ -5,12 +5,15 @@ afin de rester testables indépendamment du protocole MCP.
 """
 
 from __future__ import annotations
+##__future__ 是"提前使用新特性"的开关，
+# annotations 是具体要打开的那个特性，即"类型注解先不计算"。
+# 主要好处是类里可以直接引用自己，不用给类型加引号。
 
 from dataclasses import dataclass
 from datetime import date
 from decimal import Decimal, ROUND_HALF_UP
 from enum import Enum
-from typing import Any
+from typing import Any, Final
 
 CENT = Decimal("0.01")
 
@@ -24,7 +27,9 @@ class InvoiceStatus(str, Enum):
     CANCELLED = "cancelled"  # annulée / avoirée
 
     @classmethod
-    def parse(cls, value: str) -> "InvoiceStatus":
+    def parse(cls, value: str) -> "InvoiceStatus":##属于类方法，调用写成 InvoiceStatus.parse
+        ##把特殊字符串转换成枚举的工厂方法
+        ##cls是类本身
         try:
             return cls(str(value).strip().lower())
         except ValueError as exc:
@@ -47,7 +52,7 @@ def to_money(value: Any) -> Decimal:
             montant = Decimal(str(value))
         except Exception as exc:  # noqa: BLE001 - on reformule l'erreur
             raise ValueError(f"Montant invalide : {value!r}") from exc
-    return montant.quantize(CENT, rounding=ROUND_HALF_UP)
+    return montant.quantize(CENT, rounding=ROUND_HALF_UP)##四舍五入
 
 
 def parse_date(value: Any, champ: str = "date") -> date:
@@ -102,6 +107,7 @@ class Invoice:
     # Règles métier
     # ------------------------------------------------------------------
     @property
+    ##把一个方法伪装成字段访问。  inv.amount_ttc 
     def amount_ttc(self) -> Decimal:
         """Montant TTC arrondi au centime."""
         return to_money(self.amount_ht * (Decimal("1") + self.vat_rate))
